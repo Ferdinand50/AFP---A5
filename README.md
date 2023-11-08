@@ -20,6 +20,11 @@ cd ~/ros2_ws/src
 git clone git@github.com:Ferdinand50/tof_detection_module.git
 ```
 
+3. Build ws
+```shell
+colcon build
+```
+
 
 
 ## ToF Camera
