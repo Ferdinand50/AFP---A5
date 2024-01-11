@@ -25,6 +25,11 @@ git clone git@github.com:Ferdinand50/tof_detection_module.git
 colcon build
 ```
 
+Camera IP Setup
+
+follow official docs
+file:///home/ferdi/ArenaSDK_Linux_x64/docs/html/arena_sdk_linux.html
+
 
 
 ## ToF Camera
