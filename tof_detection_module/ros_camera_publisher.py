@@ -1,9 +1,10 @@
 import rclpy
 from rclpy.node import Node
-from sensor_msgs.msg import PointCloud2
-from sensor_msgs.msg import PointField
-import std_msgs.msg
+from sensor_msgs.msg import PointCloud2, PointField
 import numpy as np
+import open3d as o3d
+import os
+import ament_index_python
 
 class PointCloudPublisher(Node):
     def __init__(self):
@@ -12,25 +13,31 @@ class PointCloudPublisher(Node):
         self.timer_ = self.create_timer(1.0, self.publish_point_cloud)
 
     def publish_point_cloud(self):
+        # Load the point cloud from file
+
+        point_cloud = o3d.io.read_point_cloud('src/tof_detection_module/point_clouds/Cpp_Save_Ply.ply')
+
+        # Convert the Open3D point cloud to numpy array
+        points = np.asarray(point_cloud.points)
+
         # Create a PointCloud2 message
         msg = PointCloud2()
-        msg.header.stamp = self.get_clock().now().to_msg()
-        msg.header.frame_id = 'base_link'
-
-        # Set the fields of the PointCloud2 message
+        msg.header.frame_id = "map"  # Set the frame ID as needed
         msg.height = 1
-        msg.width = 4
-        msg.fields.append(PointField(name='x', offset=0, datatype=PointField.FLOAT32, count=1))
-        msg.fields.append(PointField(name='y', offset=4, datatype=PointField.FLOAT32, count=1))
-        msg.fields.append(PointField(name='z', offset=8, datatype=PointField.FLOAT32, count=1))
+        msg.width = points.shape[0]
+        msg.fields = [
+            PointField(name="x", offset=0, datatype=PointField.FLOAT32, count=1),
+            PointField(name="y", offset=4, datatype=PointField.FLOAT32, count=1),
+            PointField(name="z", offset=8, datatype=PointField.FLOAT32, count=1)
+        ]
+        msg.is_bigendian = False
+        msg.point_step = 12
+        msg.row_step = msg.point_step * points.shape[0]
+        msg.is_dense = True
+        msg.data = points.astype(np.float32).tobytes()
 
-        # Generate some random point cloud data
-        points = np.random.rand(4, 3).astype(np.float32)
-        msg.data = points.tobytes()
-
-        # Publish the PointCloud2 message
         self.publisher_.publish(msg)
-        self.get_logger().info('Published point cloud')
+
 
 def main(args=None):
     rclpy.init(args=args)

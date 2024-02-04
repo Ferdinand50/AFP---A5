@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-             'ros_camera_publisher = tof_detection_module.ros_camera_publisher:main'
+             'ros_camera_publisher = tof_detection_module.ros_camera_publisher:main',
+             'main = tof_detection_module.main:main'
         ],
     },
 )
