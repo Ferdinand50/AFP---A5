@@ -39,7 +39,7 @@ class PointCloudPublisher(Node):
         self.publisher_.publish(msg)
 
 
-def main(args=None):
+def get_ply(args=None):
     rclpy.init(args=args)
     point_cloud_publisher = PointCloudPublisher()
     rclpy.spin(point_cloud_publisher)
@@ -47,4 +47,4 @@ def main(args=None):
     rclpy.shutdown()
 
 if __name__ == '__main__':
-    main()
+    get_ply()

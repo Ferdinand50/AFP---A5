@@ -21,7 +21,8 @@ setup(
     entry_points={
         'console_scripts': [
              'ros_camera_publisher = tof_detection_module.ros_camera_publisher:main',
-             'main = tof_detection_module.main:main'
+             'main = tof_detection_module.main:main',
+             'detection = tof_detection_module.detection:main'
         ],
     },
 )

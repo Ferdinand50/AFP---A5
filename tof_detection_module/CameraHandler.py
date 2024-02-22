@@ -35,7 +35,7 @@ def validate_device(device):
 		sys.exit()
 
 
-def get_ply():
+def save_ply():
 
 	devices = system.create_device()
 	if not len(devices):
@@ -71,7 +71,7 @@ def get_ply():
   
 		writer = Writer()
 
-		writer.save(buffer, 'I_AM_A_3D_BECAUSE_OF_MY_EXTENSION.ply')
+		writer.save(buffer, 'src/tof_detection_module/point_cloud/scene.ply')
 
 		print(f'Image saved {writer.saved_images[-1]}')
   
@@ -90,4 +90,4 @@ def get_ply():
 
 
 if __name__ == '__main__':
-	get_ply()
+	save_ply()
