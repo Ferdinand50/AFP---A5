@@ -5,6 +5,7 @@ AFP Project 5
 ## Prerequisite
 - Python 3.10
 - ROS 2 Humble
+- Python API Lucid Vision https://thinklucid.com/downloads-hub/
 
 
 ## Installation
